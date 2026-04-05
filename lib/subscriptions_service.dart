@@ -11,8 +11,8 @@ class SubscriptionsService {
 
   Future<void> initRevenueCat() async {
     await Purchases.configure(
-      PurchasesConfiguration("test_JnBhCkFEDZytfAvIQRRjrRogXOZ"),
-    );
+        PurchasesConfiguration("test_JnBhCkFEDZytfAvIQRRjrRogXOZ"));
+    await Purchases.logIn("SajibHasan");
   }
 
   Future<void> getOfferings() async {
@@ -40,8 +40,13 @@ class SubscriptionsService {
     return customerInfo.entitlements.active.isNotEmpty;
   }
 
+
+  Future<void> logout() async {
+    await Purchases.logOut();
+  }
+
   Future<void> restore() async {
-    CustomerInfo customerInfo = await Purchases.restorePurchases();
+    final customerInfo = await Purchases.restorePurchases();
     print("Restored: ${customerInfo.entitlements.active}");
   }
 

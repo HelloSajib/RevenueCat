@@ -177,6 +177,24 @@ class _MyWidgetState extends State<MyWidget> {
                           },
                         ),
                 ),
+
+
+                ElevatedButton(
+                    onPressed: ()=> SubscriptionsService.instance.logout(),
+                    child: Text(
+                        "Log Out"
+                    )
+                ),
+                SizedBox(height: 16),
+
+                ElevatedButton(
+                    onPressed: ()=> SubscriptionsService.instance.restore(),
+                    child: Text(
+                      "Restore"
+                    )
+                ),
+                SizedBox(height: 16),
+
               ],
             ),
     );
