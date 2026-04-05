@@ -3,9 +3,15 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 class SubscriptionsService {
   const SubscriptionsService._();
 
+  static final SubscriptionsService _instance = SubscriptionsService._();
+
+  static SubscriptionsService get instance => _instance;
+
+  static List<Package>? packages;
+
   Future<void> initRevenueCat() async {
     await Purchases.configure(
-      PurchasesConfiguration("YOUR_PUBLIC_API_KEY"),
+      PurchasesConfiguration("test_JnBhCkFEDZytfAvIQRRjrRogXOZ"),
     );
   }
 
@@ -13,7 +19,7 @@ class SubscriptionsService {
     Offerings offerings = await Purchases.getOfferings();
 
     if (offerings.current != null) {
-      final packages = offerings.current!.availablePackages;
+      packages = offerings.current!.availablePackages;
       print(packages);
     }
   }
@@ -27,6 +33,11 @@ class SubscriptionsService {
     } catch (e) {
       print("Purchase failed: $e");
     }
+  }
+
+  Future<bool> checkingMembership() async {
+    final customerInfo = await Purchases.getCustomerInfo();
+    return customerInfo.entitlements.active.isNotEmpty;
   }
 
   Future<void> restore() async {
